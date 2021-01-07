@@ -33,7 +33,7 @@ ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:/opt/R/3.6.3/lib/R/library/ospsuite/
 ENV PATH="/opt/R/3.6.3/bin:${PATH}"
 
 # Install testthat and run tests
-#RUN R --no-save -e "install.packages('testthat', repos='http://cran.rstudio.com/')" 
-#RUN R --no-save -e "setwd(system.file('tests', package = 'ospsuite')); source('testthat.R')" 
-RUN R --no-save -e ".libPaths()" 
-RUN ls -l /opt/R/3.6.3/lib/R/library/ospsuite/
+RUN R --no-save -e "install.packages('testthat', repos='http://cran.rstudio.com/')" 
+RUN R --no-save -e "setwd(system.file('tests', package = 'ospsuite')); source('testthat.R')" 
+#RUN R --no-save -e ".libPaths()" 
+#RUN ls -l /opt/R/3.6.3/lib/R/library/ospsuite/
