@@ -2,7 +2,8 @@ FROM rstudio/r-base:3.6.3-centos7
 
 ENTRYPOINT ["sh"]
 
-RUN R --no-save -e "install.packages('R6', repos='http://cran.rstudio.com/')" 
+RUN R --no-save -e "install.packages('R6', repos='http://cran.rstudio.com/')"
+RUN R --no-save -e "install.packages('testthat', repos='http://cran.rstudio.com/')" 
 
 # Install mono
 RUN rpm --import "http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF" && \
@@ -17,15 +18,15 @@ RUN yum install -y libxml2-devel git nuget openmpi-devel && \
 
 # Get software
 ADD https://github.com/Open-Systems-Pharmacology/rClr/files/4127362/rClr_0.8.3_CentOS7.tar.gz /root/
-ADD https://github.com/Open-Systems-Pharmacology/OSPSuite-R/releases/download/v9.1/ospsuite_9.1.1_centOS7.tar.gz /root/
+ADD https://github.com/Open-Systems-Pharmacology/OSPSuite-R/releases/download/v9.1.4/ospsuite_9.1.4_centOS7.tar.gz /root/
 
 # Install rClr and ospsuite
 RUN . /etc/bashrc && \
     R CMD INSTALL /root/rClr_0.8.3_CentOS7.tar.gz && \
-    R CMD INSTALL /root/ospsuite_9.1.1_centOS7.tar.gz 
+    R CMD INSTALL /root/ospsuite_9.1.4_centOS7.tar.gz 
 
 RUN rm -rf /root/rClr_0.8.3_CentOS7.tar.gz \
-           /root/ospsuite_9.1.1_centOS7.tar.gz 
+           /root/ospsuite_9.1.4_centOS7.tar.gz 
 
 ENV LC_ALL en_US.UTF-8
 ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:/opt/R/3.6.3/lib/R/library/ospsuite/lib:$LD_LIBRARY_PATH"
