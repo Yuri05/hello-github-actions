@@ -2,8 +2,8 @@ FROM rstudio/r-base:3.6.3-centos7
 
 ENTRYPOINT ["sh"]
 
+# Install R package dependencies
 RUN R --no-save -e "install.packages('R6', repos='http://cran.rstudio.com/')"
-RUN R --no-save -e "install.packages('testthat', repos='http://cran.rstudio.com/')" 
 
 # Install mono
 RUN rpm --import "http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF" && \
@@ -31,3 +31,7 @@ RUN rm -rf /root/rClr_0.8.3_CentOS7.tar.gz \
 ENV LC_ALL en_US.UTF-8
 ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:/opt/R/3.6.3/lib/R/library/ospsuite/lib:$LD_LIBRARY_PATH"
 ENV PATH="/opt/R/3.6.3/bin:${PATH}"
+
+# Install testthat and run tests
+RUN R --no-save -e "install.packages('testthat', repos='http://cran.rstudio.com/')" 
+RUN R --no-save -e "setwd(system.file('tests', package = 'ospsuite')); source('testthat.R')" 
