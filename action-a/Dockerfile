@@ -23,7 +23,7 @@ ADD https://github.com/Open-Systems-Pharmacology/OSPSuite-R/releases/download/v9
 # Install rClr and ospsuite
 RUN . /etc/bashrc && \
     R CMD INSTALL /root/rClr_0.8.3_CentOS7.tar.gz && \
-    R CMD INSTALL /root/ospsuite_9.1.4_centOS7.tar.gz 
+    R CMD INSTALL /root/ospsuite_9.1.4_centOS7.tar.gz --install-tests
 
 RUN rm -rf /root/rClr_0.8.3_CentOS7.tar.gz \
            /root/ospsuite_9.1.4_centOS7.tar.gz 
