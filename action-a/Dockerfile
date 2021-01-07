@@ -33,7 +33,7 @@ ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:/opt/R/3.6.3/lib/R/library/ospsuite/
 ENV PATH="/opt/R/3.6.3/bin:${PATH}"
 
 # Simple test: run a population simulation
-RUN R --no-save -e "library(ospsuite);setwd(system.file('extdata', package = 'ospsuite'));sim=loadSimulation('simple.pkml');pop=loadPopulation('simple_pop.csv');runSimulation(sim, pop)"
+RUN R --no-save -e "library(ospsuite);setwd(system.file('extdata', package = 'ospsuite'));sim=loadSimulation('simple.pkml');pop=loadPopulation('simple_pop.csv');runSimulation(sim, pop); exportIndividualSimulations(pop, c(1, 2), tempdir(), sim)"
 
 # Install testthat and run all package tests
 # RUN R --no-save -e "install.packages('testthat', repos='http://cran.rstudio.com/')" 
