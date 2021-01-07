@@ -2,13 +2,9 @@ FROM rstudio/r-base:3.6.3-bionic
 
 ENTRYPOINT ["sh"]
 
-# Install nuget, dotnet-sdk-3.1
-RUN apt-get -y update && \
-    apt-get -y install git nuget libcurl4-openssl-dev libssl-dev libxml2-dev openmpi-bin openmpi-common && \
-    wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
-    dpkg -i packages-microsoft-prod.deb && \
-    apt-get -y install software-properties-common && \
-    add-apt-repository -y universe && \
-    apt-get -y install apt-transport-https && \
-    apt-get -y install dotnet-sdk-3.1
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key -y add - && \
+    apt-add-repository -y https://packages.microsoft.com/ubuntu/18.04/prod && \
+    apt-get -y update && \
+    apt-get -y install dotnet-sdk-3.1 && \
+    dotnet --version
 
