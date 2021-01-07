@@ -2,7 +2,7 @@ FROM rstudio/r-base:3.6.3-bionic
 
 ENTRYPOINT ["sh"]
 
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key -y add - && \
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
     apt-add-repository -y https://packages.microsoft.com/ubuntu/18.04/prod && \
     apt-get -y update && \
     apt-get -y install dotnet-sdk-3.1 && \
