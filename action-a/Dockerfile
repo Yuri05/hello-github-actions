@@ -1,4 +1,4 @@
-FROM rstudio/r-base:3.6.3-centos8
+FROM rstudio/r-base:3.6.3-centos7
 
 ENTRYPOINT ["sh"]
 
@@ -7,9 +7,9 @@ RUN R --no-save -e "install.packages('R6', repos='http://cran.rstudio.com/')"
 
 # Install mono
 RUN rpm --import "http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF" && \
-    yum install -y yum-utils && \
+    yum update -y && \
     yum-config-manager --add-repo http://repo1.xorcom.com/repos/mono-project/mono-project/ && \
-    yum install -y mono-complete-0:5.20.1-2.el8.x86_64
+    yum install -y mono-complete-0:5.18.0.240-0.xamarin.2.epel7.x86_64
 
 # Install nuget, dotnet-sdk-3.1, and msbuild
 RUN yum install -y libxml2-devel git nuget openmpi-devel && \
@@ -34,9 +34,8 @@ ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:/opt/R/3.6.3/lib/R/library/ospsuite/
 ENV PATH="/opt/R/3.6.3/bin:${PATH}"
 
 # Simple test: run a population simulation
-RUN R --no-save -e "library(ospsuite);setwd(system.file('extdata', package = 'ospsuite'));sim=loadSimulation('simple.pkml');pop=loadPopulation('simple_pop.csv');runSimulation(sim, pop); exportIndividualSimulations(pop, c(1, 2), tempdir(), sim)"
+RUN R --no-save -e "library(ospsuite);setwd(system.file('extdata', package = 'ospsuite'));sim=loadSimulation('simple.pkml');pop=loadPopulation('simple_pop.csv');runSimulation(sim, pop)"
 
 # Install testthat and run all package tests
 # RUN R --no-save -e "install.packages('testthat', repos='http://cran.rstudio.com/')" 
 # RUN R --no-save -e "setwd(system.file('tests', package = 'ospsuite')); source('testthat.R')" 
-
