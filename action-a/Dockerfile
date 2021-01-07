@@ -10,7 +10,7 @@ RUN rpm --import "http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E03
     yum update -y && \
     yum install -y yum-utils && \
     yum-config-manager --add-repo http://repo1.xorcom.com/repos/mono-project/mono-project/ && \
-    yum install -y mono-complete-0:5.18.0.240-0.xamarin.2.epel7.x86_64
+    yum install -y mono-complete-0:5.18.0.268-0.xamarin.3.epel7.x86_64
 
 # Install nuget, dotnet-sdk-3.1, and msbuild
 RUN yum install -y libxml2-devel git nuget openmpi-devel && \
