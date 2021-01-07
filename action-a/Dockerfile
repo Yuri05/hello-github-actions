@@ -7,6 +7,7 @@ RUN R --no-save -e "install.packages('R6', repos='http://cran.rstudio.com/')"
 
 # Install mono
 RUN rpm --import "http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF" && \
+    yum update && \
     yum install -y yum-utils && \
     yum-config-manager --add-repo http://repo1.xorcom.com/repos/mono-project/mono-project/ && \
     yum install -y mono-complete-0:5.18.0.240-0.xamarin.2.epel7.x86_64
