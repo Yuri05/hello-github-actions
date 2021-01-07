@@ -10,7 +10,7 @@ RUN sudo apt install gnupg ca-certificates && \
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
     echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic/snapshots/5.18 main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list && \
     sudo apt update && \
-    sudo apt install mono-complete && \
+    sudo apt install mono-complete
 
 # Install nuget, dotnet-sdk-3.1, and msbuild
 RUN sudo apt install -y git nuget libcurl4-openssl-dev libssl-dev libxml2-dev openmpi-dev && \
@@ -19,7 +19,7 @@ RUN sudo apt install -y git nuget libcurl4-openssl-dev libssl-dev libxml2-dev op
     add-apt-repository universe && \
     apt-get update && \
     apt-get install apt-transport-https && \
-    apt-get install dotnet-sdk-3.1 && \
+    apt-get install dotnet-sdk-3.1
 
 # Get software
 ADD https://github.com/Open-Systems-Pharmacology/rClr/files/5766540/rClr_0.8.3_Ubuntu18.tar.gz /root/
