@@ -22,6 +22,7 @@ RUN apt-get -y install git nuget libcurl4-openssl-dev libssl-dev libxml2-dev ope
 # RUN R --no-save -e "install.packages('R6', repos='http://cran.rstudio.com/')"
 
 # Install mono
+RUN apt-get -y remove mono-complete
 RUN apt-get -y install -y gnupg ca-certificates && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF && \
     echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic/snapshots/5.18 main" | tee /etc/apt/sources.list.d/mono-official-stable.list && \
