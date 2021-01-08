@@ -26,15 +26,13 @@ RUN apt-get -y install -y gnupg ca-certificates && \
     apt-get -y install -y mono-complete
 
 # Get software
-ADD https://github.com/Open-Systems-Pharmacology/rClr/releases/download/v0.8.3_Linux/rClr_0.8.3_Ubuntu18.tar.gz /root/
 ADD https://github.com/Open-Systems-Pharmacology/OSPSuite-R/releases/download/v9.1.4/ospsuite_9.1.4_ubuntu18.tar.gz /root/
 
 # Install rClr and ospsuite
-RUN R CMD INSTALL /root/rClr_0.8.3_Ubuntu18.tar.gz && \
+RUN R --no-save -e "install.packages('devtools', repos='http://cran.rstudio.com/') ; devtools::install_url('https://github.com/Open-Systems-Pharmacology/rClr/archive/v0.8.3_Linux.tar.gz',subdir='rClr-0.8.3_Linux')"  && \
     R CMD INSTALL /root/ospsuite_9.1.4_ubuntu18.tar.gz --install-tests
 
-RUN rm -rf /root/rClr_0.8.3_Ubuntu18.tar.gz \
-           /root/ospsuite_9.1.4_ubuntu18.tar.gz 
+RUN rm -rf /root/ospsuite_9.1.4_ubuntu18.tar.gz 
 
 ENV LC_ALL en_US.UTF-8
 ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:/opt/R/3.6.3/lib/R/library/ospsuite/lib:$LD_LIBRARY_PATH"
