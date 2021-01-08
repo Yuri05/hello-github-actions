@@ -29,7 +29,8 @@ RUN apt-get -y install gnupg ca-certificates && \
     apt-get -y install mono-complete
 
 #tmp
-RUN mono -V
+RUN mono -V && \
+    cat /etc/apt/sources.list.d/mono-official-stable.list
 
 # Get software
 # ADD https://github.com/Open-Systems-Pharmacology/OSPSuite-R/releases/download/v9.1.4/ospsuite_9.1.4_ubuntu18.tar.gz /root/
