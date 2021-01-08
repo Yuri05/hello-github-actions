@@ -2,6 +2,8 @@ FROM rstudio/r-base:3.6.3-bionic
 
 ENTRYPOINT ["sh"]
 
+RUN locale-gen en_US.UTF-8
+
 # Install dotnet-sdk-3.1
 RUN apt-get -y update && \
     apt-get -y install software-properties-common && \
@@ -24,7 +26,7 @@ RUN apt-get -y install -y gnupg ca-certificates && \
     apt-get -y install -y mono-complete
 
 # Get software
-ADD https://github.com/Open-Systems-Pharmacology/rClr/files/5766540/rClr_0.8.3_Ubuntu18.tar.gz /root/
+ADD https://github.com/Open-Systems-Pharmacology/rClr/releases/download/v0.8.3_Linux/rClr_0.8.3_Ubuntu18.tar.gz /root/
 ADD https://github.com/Open-Systems-Pharmacology/OSPSuite-R/releases/download/v9.1.4/ospsuite_9.1.4_ubuntu18.tar.gz /root/
 
 # Install rClr and ospsuite
