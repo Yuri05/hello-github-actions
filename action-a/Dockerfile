@@ -2,24 +2,24 @@ FROM rstudio/r-base:3.6.3-focal
 
 ENTRYPOINT ["sh"]
 
-#temporary
-RUN R --no-save -e "install.packages('usethis', repos='http://cran.rstudio.com/')"
-
-RUN locale-gen en_US.UTF-8
+# RUN locale-gen en_US.UTF-8
 
 # Install dotnet-sdk-3.1
-RUN apt-get -y update && \
-    apt-get -y install software-properties-common && \
-    curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
-    apt-add-repository -y https://packages.microsoft.com/ubuntu/20.04/prod && \
-    apt-get -y install dotnet-sdk-3.1 && \
-    dotnet --version
+# RUN apt-get -y update && \
+#    apt-get -y install software-properties-common && \
+#     curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
+#     apt-add-repository -y https://packages.microsoft.com/ubuntu/20.04/prod && \
+#     apt-get -y install dotnet-sdk-3.1 && \
+#     dotnet --version
+
+#tmp
+RUN apt-get -y update
 
 # Install git, nuget and libraries
 RUN apt-get -y install git nuget libcurl4-openssl-dev libssl-dev libxml2-dev openmpi-bin openmpi-common
 
 # Install R package dependencies
-RUN R --no-save -e "install.packages('R6', repos='http://cran.rstudio.com/')"
+# RUN R --no-save -e "install.packages('R6', repos='http://cran.rstudio.com/')"
 
 # Install mono
 RUN apt-get -y install -y gnupg ca-certificates && \
@@ -28,21 +28,24 @@ RUN apt-get -y install -y gnupg ca-certificates && \
     apt-get -y update -y && \
     apt-get -y install -y mono-complete
 
+#tmp
+RUN mono -V
+
 # Get software
-ADD https://github.com/Open-Systems-Pharmacology/OSPSuite-R/releases/download/v9.1.4/ospsuite_9.1.4_ubuntu18.tar.gz /root/
+# ADD https://github.com/Open-Systems-Pharmacology/OSPSuite-R/releases/download/v9.1.4/ospsuite_9.1.4_ubuntu18.tar.gz /root/
 
 # Install rClr and ospsuite
-RUN R --no-save -e "install.packages('devtools', repos='http://cran.rstudio.com/') ; devtools::install_url('https://github.com/Open-Systems-Pharmacology/rClr/archive/v0.8.3_Linux.tar.gz',subdir='rClr-0.8.3_Linux')"  && \
-    R CMD INSTALL /root/ospsuite_9.1.4_ubuntu18.tar.gz --install-tests
+# RUN R --no-save -e "install.packages('devtools', repos='http://cran.rstudio.com/') ; devtools::install_url('https://github.com/Open-Systems-Pharmacology/rClr/archive/v0.8.3_Linux.tar.gz',subdir='rClr-0.8.3_Linux')"  && \
+#     R CMD INSTALL /root/ospsuite_9.1.4_ubuntu18.tar.gz --install-tests
 
-RUN rm -rf /root/ospsuite_9.1.4_ubuntu18.tar.gz 
+# RUN rm -rf /root/ospsuite_9.1.4_ubuntu18.tar.gz 
 
-ENV LC_ALL en_US.UTF-8
-ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:/opt/R/3.6.3/lib/R/library/ospsuite/lib:$LD_LIBRARY_PATH"
-ENV PATH="/opt/R/3.6.3/bin:${PATH}"
+# ENV LC_ALL en_US.UTF-8
+# ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:/opt/R/3.6.3/lib/R/library/ospsuite/lib:$LD_LIBRARY_PATH"
+# ENV PATH="/opt/R/3.6.3/bin:${PATH}"
 
 # Simple test: run a population simulation
-RUN R --no-save -e "library(ospsuite);setwd(system.file('extdata', package = 'ospsuite'));sim=loadSimulation('simple.pkml');pop=loadPopulation('simple_pop.csv');runSimulation(sim, pop)"
+# RUN R --no-save -e "library(ospsuite);setwd(system.file('extdata', package = 'ospsuite'));sim=loadSimulation('simple.pkml');pop=loadPopulation('simple_pop.csv');runSimulation(sim, pop)"
 
 # Install testthat and run all package tests
 # RUN R --no-save -e "install.packages('testthat', repos='http://cran.rstudio.com/')" 
