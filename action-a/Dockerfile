@@ -2,6 +2,9 @@ FROM rstudio/r-base:3.6.3-focal
 
 ENTRYPOINT ["sh"]
 
+#temporary
+RUN R --no-save -e "install.packages('usethis', repos='http://cran.rstudio.com/')"
+
 RUN locale-gen en_US.UTF-8
 
 # Install dotnet-sdk-3.1
