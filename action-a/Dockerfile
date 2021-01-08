@@ -12,11 +12,8 @@ ENTRYPOINT ["sh"]
 #     apt-get -y install dotnet-sdk-3.1 && \
 #     dotnet --version
 
-#tmp
-RUN apt-get -y update
-
 # Install git, nuget and libraries
-RUN apt-get -y install git nuget libcurl4-openssl-dev libssl-dev libxml2-dev openmpi-bin openmpi-common
+# RUN apt-get -y install git nuget libcurl4-openssl-dev libssl-dev libxml2-dev openmpi-bin openmpi-common
 
 # Install R package dependencies
 # RUN R --no-save -e "install.packages('R6', repos='http://cran.rstudio.com/')"
