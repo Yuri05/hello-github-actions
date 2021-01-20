@@ -55,6 +55,7 @@ ADD https://ci.appveyor.com/api/buildjobs/g792yu9hohdx6hkn/artifacts/ospsuite.re
 ADD https://cran.r-project.org/src/contrib/Rmpi_0.6-9.tar.gz /root/
 
 RUN R --no-save -e "install.packages('ggplot2', repos='http://cran.rstudio.com/')" && \
+    R --no-save -e "install.packages('reshape2', repos='http://cran.rstudio.com/')" && \
     R CMD INSTALL /root/tlf_1.1.1.tar.gz --install-tests && \
     R CMD INSTALL /root/ospsuite.reportingengine_1.1.12.tar.gz --install-tests && \
     R CMD INSTALL /root/Rmpi_0.6-9.tar.gz --configure-args="--with-Rmpi-include=/usr/include/openmpi-x86_64 --with-Rmpi-libpath=/usr/lib64/openmpi/lib --with-Rmpi-type=OPENMPI"
