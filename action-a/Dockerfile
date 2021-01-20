@@ -56,6 +56,7 @@ ADD https://cran.r-project.org/src/contrib/Rmpi_0.6-9.tar.gz /root/
 
 RUN R --no-save -e "install.packages('ggplot2', repos='http://cran.rstudio.com/')" && \
     R --no-save -e "install.packages('reshape2', repos='http://cran.rstudio.com/')" && \
+    R --no-save -e "install.packages('knitr', repos='http://cran.rstudio.com/')" && \
     R CMD INSTALL /root/tlf_1.1.1.tar.gz --install-tests && \
     R CMD INSTALL /root/ospsuite.reportingengine_1.1.12.tar.gz --install-tests && \
     R CMD INSTALL /root/Rmpi_0.6-9.tar.gz --configure-args="--with-Rmpi-include=/usr/include/openmpi-x86_64 --with-Rmpi-libpath=/usr/lib64/openmpi/lib --with-Rmpi-type=OPENMPI"
@@ -65,5 +66,5 @@ RUN rm -rf /root/ospsuite.reportingengine_1.1.12.tar.gz \
            /root/Rmpi_0.6-9.tar.gz
            
 # Install testthat and run all package tests
-RUN R --no-save -e "install.packages('testthat', repos='http://cran.rstudio.com/')" 
+# RUN R --no-save -e "install.packages('testthat', repos='http://cran.rstudio.com/')" 
 RUN R --no-save -e "setwd(system.file('tests', package = 'ospsuite.reportingengine')); source('testthat.R')" 
