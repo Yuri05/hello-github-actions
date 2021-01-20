@@ -28,7 +28,7 @@ RUN R CMD INSTALL /root/rClr_0.8.3_CentOS7.tar.gz && \
 RUN rm -rf /root/rClr_0.8.3_CentOS7.tar.gz \
            /root/ospsuite_9.1.4_centOS7.tar.gz 
 
-ENV LC_ALL en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
 ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:/opt/R/3.6.3/lib/R/library/ospsuite/lib:$LD_LIBRARY_PATH"
 ENV PATH="/opt/R/3.6.3/bin:${PATH}"
 
@@ -38,3 +38,27 @@ RUN R --no-save -e "library(ospsuite);setwd(system.file('extdata', package = 'os
 # Install testthat and run all package tests
 # RUN R --no-save -e "install.packages('testthat', repos='http://cran.rstudio.com/')" 
 # RUN R --no-save -e "setwd(system.file('tests', package = 'ospsuite')); source('testthat.R')" 
+
+# ================= Next steps are required for the reporting engine only
+
+# Install pandoc
+ADD https://github.com/jgm/pandoc/releases/download/2.9.2.1/pandoc-2.9.2.1-linux-amd64.tar.gz /root/
+RUN mkdir /pandoc && \
+    cd /pandoc && \
+    mv /root/pandoc-2.9.2.1-linux-amd64.tar.gz /pandoc && \
+    tar -xzf pandoc-2.9.2.1-linux-amd64.tar.gz && \
+    rm -f /usr/bin/pandoc && \
+    ln -s /pandoc/pandoc-2.9.2.1/bin/pandoc /usr/bin/pandoc
+
+ADD https://ci.appveyor.com/api/buildjobs/g792yu9hohdx6hkn/artifacts/ospsuite.reportingengine_1.1.12.tar.gz /root/
+ADD https://cran.r-project.org/src/contrib/Rmpi_0.6-9.tar.gz /root/
+
+RUN R CMD INSTALL /root/ospsuite.reportingengine_1.1.12.tar.gz --install-tests && \
+    R CMD INSTALL /root/Rmpi_0.6-9.tar.gz --configure-args="--with-Rmpi-include=/usr/include/openmpi-x86_64 --with-Rmpi-libpath=/usr/lib64/openmpi/lib --with-Rmpi-type=OPENMPI"
+
+RUN rm -rf /root/ospsuite.reportingengine_1.1.12.tar.gz \
+           /root/Rmpi_0.6-9.tar.gz
+           
+# Install testthat and run all package tests
+RUN R --no-save -e "install.packages('testthat', repos='http://cran.rstudio.com/')" 
+RUN R --no-save -e "setwd(system.file('tests', package = 'ospsuite.reportingengine')); source('testthat.R')" 
