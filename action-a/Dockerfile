@@ -50,13 +50,17 @@ RUN mkdir /pandoc && \
     rm -f /usr/bin/pandoc && \
     ln -s /pandoc/pandoc-2.9.2.1/bin/pandoc /usr/bin/pandoc
 
+ADD https://github.com/Open-Systems-Pharmacology/TLF-Library/releases/download/v1.1.1/tlf_1.1.1.tar.gz /root/
 ADD https://ci.appveyor.com/api/buildjobs/g792yu9hohdx6hkn/artifacts/ospsuite.reportingengine_1.1.12.tar.gz /root/
 ADD https://cran.r-project.org/src/contrib/Rmpi_0.6-9.tar.gz /root/
 
-RUN R CMD INSTALL /root/ospsuite.reportingengine_1.1.12.tar.gz --install-tests && \
+RUN R --no-save -e "install.packages('ggplot2', repos='http://cran.rstudio.com/')" && \
+    R CMD INSTALL /root/tlf_1.1.1.tar.gz --install-tests && \
+    R CMD INSTALL /root/ospsuite.reportingengine_1.1.12.tar.gz --install-tests && \
     R CMD INSTALL /root/Rmpi_0.6-9.tar.gz --configure-args="--with-Rmpi-include=/usr/include/openmpi-x86_64 --with-Rmpi-libpath=/usr/lib64/openmpi/lib --with-Rmpi-type=OPENMPI"
 
 RUN rm -rf /root/ospsuite.reportingengine_1.1.12.tar.gz \
+           /root/tlf_1.1.1.tar.gz \
            /root/Rmpi_0.6-9.tar.gz
            
 # Install testthat and run all package tests
