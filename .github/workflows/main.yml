@@ -14,5 +14,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: yuri05/hello-github-actions/R3.6.3_CentOS7
+          repository: yuri05/hello-github-actions/r3.6.3_centos7
           tag_with_ref: true
