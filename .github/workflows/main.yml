@@ -1,12 +1,18 @@
-name: A workflow for my Hello World file
+name: Docker tests
 on: push
 
 jobs:
   build:
-    name: Hello world action
+    name: Docker tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./action-a
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
         with:
-          MY_NAME: "xyz"
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: Yuri05/hello-github-actions/R3.6.3_CentOS7
+          tag_with_ref: true
