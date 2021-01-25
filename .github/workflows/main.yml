@@ -14,7 +14,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: ./Dockerfile
+          file: .github/workflows/Dockerfile
           load: true
           tags: r3.6.3:centos7
       -
