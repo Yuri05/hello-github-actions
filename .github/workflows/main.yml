@@ -20,4 +20,4 @@ jobs:
       -
         name: Inspect
         run: |
-          docker image r3.6.3:centos7
+          docker image inspect r3.6.3:centos7
