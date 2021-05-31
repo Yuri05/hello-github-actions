@@ -25,4 +25,6 @@ jobs:
           push: true
           tags: |
             docker.pkg.github.com/yuri05/hello-github-actions/open-systems-pharmacology-base-r3.6.3-centos7:${{ github.sha }}
-            docker.pkg.github.com/yuri05/hello-github-actions/open-systems-pharmacology-base-r3.6.3-centos7:${{ steps.vars.outputs.tag }}
+            docker.pkg.github.com/yuri05/hello-github-actions/open-systems-pharmacology-base-r3.6.3-centos7:${{ TAG_ID }}
+        env:
+          TAG_ID: ${GITHUB_REF/refs\/tags\//}
