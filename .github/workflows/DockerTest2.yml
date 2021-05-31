@@ -13,7 +13,6 @@ jobs:
         id: tag_name
         run: |
           echo ::set-output name=SOURCE_TAG::${GITHUB_REF##*/}
- #         echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
       - name: Checkout
         uses: actions/checkout@v2
       - name: Log in to GitHub Docker Registry
@@ -29,5 +28,5 @@ jobs:
           file: .github/workflows/Dockerfile
           push: true
           tags: |
-            docker.pkg.github.com/yuri05/hello-github-actions/open-systems-pharmacology-base-r3.6.3-centos7:${{ github.sha }}
-            docker.pkg.github.com/yuri05/hello-github-actions/open-systems-pharmacology-base-r3.6.3-centos7:${{ steps.tag_name.outputs.SOURCE_TAG}}
+            docker.pkg.github.com/yuri05/hello-github-actions/base-r3.6.3-centos7:${{ steps.tag_name.outputs.SOURCE_TAG}}
+#            docker.pkg.github.com/yuri05/hello-github-actions/base-r3.6.3-centos7:${{ github.sha }}
