@@ -21,5 +21,5 @@ jobs:
           file: .github/workflows/Dockerfile
           push: true
           tags: |
-            docker.pkg.github.com/open-systems-pharmacology-base-r3.6.3-centos7:${{ github.sha }}
+            docker.pkg.github.com/yuri05/open-systems-pharmacology-base-r3.6.3-centos7:${{ github.sha }}
   #          docker.pkg.github.com/${{ github.repository }}/base-r3.6.3-centos7:${{ github.ref }}
