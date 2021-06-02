@@ -9,7 +9,8 @@ jobs:
 #    name: Docker test 2
     strategy:
         matrix:
-            r-os: [r3.6.3-centos7, r4.1.0-centos7]
+#            r-os: [r3.6.3-centos7, r4.1.0-centos7]
+            r-os: [r3.6.3-centos7]
     runs-on: ubuntu-latest
     steps:
       - name: tag name
