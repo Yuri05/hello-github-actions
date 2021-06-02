@@ -5,6 +5,11 @@ RUN mkdir -p /tmp_setup
 
 # Install RMPI
 RUN yum install -y openmpi-devel
+# Setup environment 
+ENV LC_ALL=en_US.UTF-8
+ENV LD_LIBRARY_PATH="/usr/lib64/openmpi/lib:/opt/R/3.6.3/lib/R/library/ospsuite/lib:$LD_LIBRARY_PATH"
+ENV PATH="/opt/R/3.6.3/bin:${PATH}"
+
 ADD https://cran.r-project.org/src/contrib/Rmpi_0.6-9.1.tar.gz /tmp_setup/
 RUN R CMD INSTALL /tmp_setup/Rmpi_0.6-9.1.tar.gz --configure-args="--with-Rmpi-include=/usr/include/openmpi-x86_64 --with-Rmpi-libpath=/usr/lib64/openmpi/lib --with-Rmpi-type=OPENMPI"
 
