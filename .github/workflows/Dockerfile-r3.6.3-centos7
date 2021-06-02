@@ -29,8 +29,8 @@ RUN mkdir /pandoc && \
     ln -s /pandoc/pandoc-2.9.2.1/bin/pandoc /usr/bin/pandoc
 
 # Install RMPI
-ADD https://cran.r-project.org/src/contrib/Rmpi_0.6-9.tar.gz /tmp_setup/
-RUN R CMD INSTALL /tmp_setup/Rmpi_0.6-9.tar.gz --configure-args="--with-Rmpi-include=/usr/include/openmpi-x86_64 --with-Rmpi-libpath=/usr/lib64/openmpi/lib --with-Rmpi-type=OPENMPI"
+ADD https://cran.r-project.org/src/contrib/Rmpi_0.6-9.1.tar.gz /tmp_setup/
+RUN R CMD INSTALL /tmp_setup/Rmpi_0.6-9.1.tar.gz --configure-args="--with-Rmpi-include=/usr/include/openmpi-x86_64 --with-Rmpi-libpath=/usr/lib64/openmpi/lib --with-Rmpi-type=OPENMPI"
 
 # Setup environment 
 ENV LC_ALL=en_US.UTF-8
