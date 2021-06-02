@@ -1,12 +1,15 @@
-name: Docker test 3
+name: Docker test 2
 on: 
 #  release:
 #    types: [published]
   push
 
 jobs:
-  prepare:
-    name: Prepare Build
+  build:
+#    name: Docker test 2
+    strategy:
+        matrix:
+            r-os: [r3.6.3-centos7, r4.1.0-centos7]
     runs-on: ubuntu-latest
     steps:
       - name: tag name
@@ -21,17 +24,11 @@ jobs:
           registry: docker.pkg.github.com
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-  build:
-    name: Build images
-    needs: prepare
-    runs-on: ubuntu-latest
-    steps:
       - name: Build
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: .github/workflows/Dockerfile
+          file: .github/workflows/Dockerfile-${{ matrix.r-os }}
           push: true
           tags: |
-            docker.pkg.github.com/yuri05/hello-github-actions/base-r3.6.3-centos7:${{ jobs.prepare.steps.tag_name.outputs.SOURCE_TAG}}
-
+            docker.pkg.github.com/yuri05/hello-github-actions/base-${{ matrix.r-os }}:${{ steps.tag_name.outputs.SOURCE_TAG}}
