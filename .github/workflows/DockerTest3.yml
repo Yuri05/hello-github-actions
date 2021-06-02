@@ -1,4 +1,4 @@
-name: Docker test 2
+name: Docker test 3
 on: 
 #  release:
 #    types: [published]
@@ -33,5 +33,5 @@ jobs:
           file: .github/workflows/Dockerfile
           push: true
           tags: |
-            docker.pkg.github.com/yuri05/hello-github-actions/base-r3.6.3-centos7:${{ prepare.steps.tag_name.outputs.SOURCE_TAG}}
+            docker.pkg.github.com/yuri05/hello-github-actions/base-r3.6.3-centos7:${{ jobs.prepare.steps.tag_name.outputs.SOURCE_TAG}}
 
